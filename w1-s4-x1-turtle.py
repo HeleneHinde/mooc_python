@@ -328,6 +328,164 @@ quadruple = (1, [2, 3], True, [(4,)])
 # Affichage des variables extraites
 print(one, two, three, four)  # Résultat: 1 2 3 4
 
+
+
+# =============================================================================
+# SECTION 22: DICTIONNAIRES - CRÉATION ET MANIPULATION
+# =============================================================================
+
+# Création d'un dictionnaire vide
+age = {}
+type(age)  # Vérifier le type: <class 'dict'>
+
+# Création d'un dictionnaire avec des paires clé-valeur
+age = {'ana': 35, 'eve': 30, 'bob': 38}
+
+# Accès à une valeur par sa clé
+age['ana']  # Retourne: 35
+
+# =============================================================================
+# SECTION 23: CONVERSION DE LISTE EN DICTIONNAIRE
+# =============================================================================
+
+# Création d'un dictionnaire à partir d'une liste de tuples
+a = [('ana', 35), ('eve', 30), ('bob', 38)]  # Liste de tuples (clé, valeur)
+age = dict(a)  # Conversion en dictionnaire
+
+# Accès et modification des valeurs
+age['bob']      # Retourne: 38
+age['bob'] = 45  # Modification de la valeur
+age             # Affiche le dictionnaire modifié
+
+# Suppression d'une entrée du dictionnaire
+del age['bob']  # Supprime la clé 'bob' et sa valeur
+age            # Affiche le dictionnaire sans 'bob'
+
+# =============================================================================
+# SECTION 24: OPÉRATIONS SUR LES DICTIONNAIRES
+# =============================================================================
+
+# Opérations de base
+len(age)        # Nombre d'éléments dans le dictionnaire
+'ana' in age    # Test de présence d'une clé (True)
+'bob' in age    # Test de présence d'une clé (False, car supprimée)
+
+# Méthodes pour accéder aux éléments
+age.keys()      # Retourne toutes les clés
+age.values()    # Retourne toutes les valeurs
+age.items()     # Retourne les paires (clé, valeur)
+
+# =============================================================================
+# SECTION 25: VUES DYNAMIQUES DES DICTIONNAIRES
+# =============================================================================
+
+# Les vues sont des objets dynamiques qui reflètent les changements
+k = age.keys()   # Créer une vue sur les clés
+k               # Affiche les clés actuelles
+
+# Modification du dictionnaire après création de la vue
+age['bob'] = 25  # Ajout d'une nouvelle entrée
+k               # La vue k reflète automatiquement le changement !
+
+# Test de présence dans la vue
+'ana' in k      # True - ana est présent
+'bill' in k     # False - bill n'est pas présent
+
+# =============================================================================
+# SECTION 26: ITÉRATION SUR LES DICTIONNAIRES
+# =============================================================================
+
+# Itération sur les paires clé-valeur
+for k, v in age.items():
+    print(f"{k} {v}")  # Affiche: "ana 35", "eve 30", "bob 25"
+
+# Itération sur les clés uniquement
+for k in age:          # Par défaut, itère sur les clés
+    print(k)          # Affiche: ana, eve, bob
+
+
+# =============================================================================
+# SECTION 27: PROGRAMMATION ORIENTÉE OBJET - DÉFINITION DE CLASSE
+# =============================================================================
+
+class Parser:
+    """
+    Classe Parser pour analyser et extraire des nombres d'une chaîne
+    
+    Cette classe démontre les concepts fondamentaux de la POO :
+    - Encapsulation des données (attributs)
+    - Méthodes d'instance
+    - Constructeur __init__
+    - Méthode spéciale __str__
+    """
+    
+    def __init__(self, sep):
+        """
+        Constructeur de la classe Parser
+        
+        Args:
+            sep (str): Le séparateur à utiliser pour diviser la chaîne
+        
+        Note: __init__ est appelé automatiquement lors de la création d'une instance
+        """
+        self.sep = sep           # Attribut: séparateur stocké dans l'instance
+        self.parsed_line = []    # Attribut: liste pour stocker les résultats
+
+    def parse(self, line):
+        """
+        Méthode pour analyser une ligne et extraire les nombres
+        
+        Args:
+            line (str): La chaîne à analyser
+        
+        Fonctionnement:
+        1. Divise la chaîne selon le séparateur
+        2. Supprime les espaces avec strip()
+        3. Garde seulement les éléments qui sont des nombres (isdigit())
+        """
+        # List comprehension complexe avec conditions multiples
+        self.parsed_line = [i.strip() for i in line.split(self.sep)
+                            if i.strip().isdigit()]
+        # Équivalent en boucle classique:
+        # self.parsed_line = []
+        # for i in line.split(self.sep):
+        #     element = i.strip()
+        #     if element.isdigit():
+        #         self.parsed_line.append(element)
+
+    def __str__(self):
+        """
+        Méthode spéciale pour la représentation en chaîne de l'objet
+        
+        Returns:
+            str: Les nombres trouvés séparés par des espaces
+        
+        Note: __str__ est appelée automatiquement par print()
+        """
+        return ' '.join(self.parsed_line)
+
+# =============================================================================
+# SECTION 28: UTILISATION DE LA CLASSE PARSER
+# =============================================================================
+
+# Chaîne de test contenant des nombres et du texte
+test = '123  : fj356:34:fjjd:    707'
+#       |      |    |   |       |
+#      123   fj356  34  fjjd   707
+#    (nombre) (texte+nombre) (nombre) (texte) (nombre)
+
+# Création d'une instance de Parser avec ':' comme séparateur
+p = Parser(':')
+# À ce moment: p.sep = ':', p.parsed_line = []
+
+# Analyse de la chaîne test
+p.parse(test)
+# Après parse(): p.parsed_line = ['123', '34', '707']
+# Les éléments 'fj356' et 'fjjd' sont exclus car ils ne sont pas purement numériques
+
+# Affichage du résultat
+print(p)  # Appelle automatiquement p.__str__()
+          # Résultat: "123 34 707"
 # =============================================================================
 # FIN DU FICHIER D'EXERCICES
 # =============================================================================
