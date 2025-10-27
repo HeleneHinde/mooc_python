@@ -418,7 +418,7 @@ class Parser:
     - Constructeur __init__
     - Méthode spéciale __str__
     """
-    
+
     def __init__(self, sep):
         """
         Constructeur de la classe Parser
@@ -431,7 +431,7 @@ class Parser:
         self.sep = sep           # Attribut: séparateur stocké dans l'instance
         self.parsed_line = []    # Attribut: liste pour stocker les résultats
 
-    def parse(self, line):
+    def parse(self, line: str) -> None:
         """
         Méthode pour analyser une ligne et extraire les nombres
         
@@ -453,7 +453,7 @@ class Parser:
         #     if element.isdigit():
         #         self.parsed_line.append(element)
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         Méthode spéciale pour la représentation en chaîne de l'objet
         
