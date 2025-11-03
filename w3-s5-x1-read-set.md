@@ -1,0 +1,116 @@
+---
+jupytext:
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
+kernelspec:
+  display_name: Python 3 (ipykernel)
+  language: python
+  name: python3
+---
+
+# Ensembles
+
++++
+
+<div class="licence">
+<span>Licence CC BY-NC-ND</span>
+<span>Thierry Parmentelat &amp; Arnaud Legout</span>
+<span>Inria - UCA</span>
+</div>
+
++++
+
+## Exercice - niveau basique
+
+On se propose d'écrire une fonction `read_set` qui construit un ensemble à partir du contenu d'un fichier. Voici par exemple un fichier d'entrée :
+
+```{code-cell} ipython3
+:cell_style: center
+
+!cat data/setref1.txt
+```
+
+`read_set` va prendre en argument un nom de fichier (vous pouvez supposer qu'il existe), enlever les espaces éventuelles au début et à la fin de chaque ligne, et construire un ensemble de toutes les lignes ; par exemple :
+
+```{code-cell} ipython3
+from corrections.exo_read_set import exo_read_set
+exo_read_set.example()
+```
+
+```{code-cell} ipython3
+# écrivez votre code ici
+def read_set(filename):
+        with open(filename, 'r', encoding='utf8') as f:
+            return set(line.strip() for line in f)
+```
+
+```{code-cell} ipython3
+# vérifiez votre code ici
+exo_read_set.correction(read_set)
+```
+
+*****
+
++++
+
+## Deuxième partie - niveau basique
+
+```{code-cell} ipython3
+# la définition de l'exercice
+from corrections.exo_read_set import exo_search_in_set
+```
+
+Ceci étant acquis, on veut écrire une deuxième fonction `search_in_set` qui prend en argument deux fichiers :
+
+* `filename_reference` est le nom d'un fichier contenant des mots de référence ;
+* `filename` est le nom d'un fichier contenant des mots, dont on veut savoir s'ils sont ou non dans les références.
+
+Pour cela `search_in_set` doit retourner une liste contenant, pour chaque ligne du fichier `filename`, et **dans cet ordre**, un tuple avec :
+
+* la ligne (sans les espaces de début et de fin, ni la fin de ligne) ;
+* un booléen qui indique si ce mot est présent dans les références ou pas.
+
+Par exemple :
+
+```{code-cell} ipython3
+:tags: [gridwidth-1-2]
+
+!cat data/setref1.txt
+```
+
+```{code-cell} ipython3
+:tags: [gridwidth-1-2]
+
+!cat data/setsample1.txt
+```
+
+```{code-cell} ipython3
+exo_search_in_set.example()
+```
+
+```{code-cell} ipython3
+# à vous
+def search_in_set(filename_reference, filename):
+    reference_set = read_set(filename_reference)
+    retour_list = []
+    with open(filename, 'r', encoding='utf8') as f:
+        for line in f:
+            word = line.strip()
+            if word in reference_set:
+                retour_list.append((word, True))
+            else:
+                retour_list.append((word, False))
+    return retour_list
+```
+
+```{code-cell} ipython3
+# vérifiez
+exo_search_in_set.correction(search_in_set)
+```
+
+```{code-cell} ipython3
+
+```
