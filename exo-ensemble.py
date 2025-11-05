@@ -1,6 +1,3 @@
-with open('spam.txt', 'r', encoding='utf8') as f:
-    print(f.read())
-
 def read_set(filename):
     with open(filename, 'r', encoding='utf8') as f:
         return set(line.strip() for line in f)
@@ -62,3 +59,14 @@ def diff(extended, abbreviated):
             only_extended_names.add(boat_name)
     
     return (only_extended_names, common_names, only_abbreviated_ids)
+
+compteur = 0
+for temoin in [ [], True, {}, "", None, False ] + list(range(3)):
+    if temoin:
+        compteur += 1
+print(compteur)
+
+a = 'disparaitre'
+while a:
+    a = a[:-1]
+    print(a)
