@@ -464,6 +464,11 @@ class Parser:
         """
         return ' '.join(self.parsed_line)
 
+mot = 1
+def f():
+    print(mot)
+    mot = 2
+f()
 # =============================================================================
 # SECTION 28: UTILISATION DE LA CLASSE PARSER
 # =============================================================================
